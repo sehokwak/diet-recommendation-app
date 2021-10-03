@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping List</title>
+    <!-- Add some CSS to change client UI -->
+    <style>
+    body {
+        background-color: #6ddbcd;
+        }
+    label, button, p {
+        color: #113a70;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+        }
+     input {
+        color: #232F3E;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+        }
+    </style>
+    <script>
+        // define the callAPI function that takes a nickname as parameter
+        
+        var callAPI = (crud, name, restrictions="")=>{
+            fetch("https://sn6cqtn9fd.execute-api.ap-northeast-2.amazonaws.com/beta", {
+                method: crud,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'nickname': name,
+                    'restrictions': restrictions
+                }),
+                redirect: 'follow'
+            })
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+
+        var getRecipeResults = (name, cuisine)=>{
+            fetch("https://sn6cqtn9fd.execute-api.ap-northeast-2.amazonaws.com/beta", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                queryStringParameters: {
+                    "nickname": name,
+                    "cuisine": cuisine
+                },
+                redirect: 'follow'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('results').innerHTML = data
+            })
+            .catch(error => console.log('error', error));
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <label>Nickname :</label>
+        <input type="text" id="nickName">
+        <label>Restrictions :</label>
+        <input type="text" id="restrictions">
+        <label>Cuisine :</label>
+        <input type="text" id="cuisine"><br />
+
+        <label>Cuisine :</label>
+        <input type="checkbox" name="vehicle" value="Bike" id="vehicle" />
+        <label for="vehicle" id="lblVehicle"></label><br />
+
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="submit" onclick="callAPI('POST',document.getElementById('nickName').value,document.getElementById('restrictions').value)">Submit</button>
+        <button type="button" onclick="callAPI('PUT',document.getElementById('nickName').value,document.getElementById('restrictions').value)">Update</button>
+
+        <!-- <button type="button" onclick="callAPI('GET',document.getElementById('nickName').value)">See Restrictions</button> -->
+        <button type="button" onclick="getRecipeResults(document.getElementById('nickName').value, document.getElementById('cuisine').value)">Get Recommendations!</button>
+        
+    </form>
+
+    <p> Results: <span id="results"></span></p>
+    <!-- <script>
+        let name = "Nathan";
+        document.getElementById("results").innerHTML = name;
+    </script> -->
+</body>
+</html>
