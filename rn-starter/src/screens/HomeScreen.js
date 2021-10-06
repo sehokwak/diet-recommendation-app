@@ -3,39 +3,38 @@ import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
 
 const HomeScreen = (props) => {
 
-
   return( 
   <View>
+
     <Text style={styles.text}>Trillion Box</Text>
 
     <Button 
     onPress={() => props.navigation.navigate('Components')}
     title= "App Instructions"
     />
-    <Button
-      title="Let's Start!"
-      onPress={() => props.navigation.navigate('List')}
-      />
-    <Button
-      title="Go to Image"
-      onPress={() => props.navigation.navigate('Image')}
-      />
       <Button
-      title="Go to Text"
+      title="Start Trillion Box"
       onPress={() => props.navigation.navigate('Text')}
       />
-      
-   
-
-   
-    
+  
   </View> 
   );
 };
 
+
 const styles = StyleSheet.create({
+
   text: {
-    fontSize: 30
+    marginTop: 100,
+    paddingVertical: 8,
+    borderWidth: 2,
+    borderColor: "#20232a",
+    borderRadius: 6,
+    backgroundColor: "#f3fb61",
+    color: "#20232a",
+    textAlign: "center",
+    fontSize: 30,
+    fontWeight: "bold"
   }
 });
 

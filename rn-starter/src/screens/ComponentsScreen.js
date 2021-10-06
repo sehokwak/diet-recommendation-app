@@ -16,10 +16,10 @@ const ComponentsScreen = () => {
 
 const styles = StyleSheet.create({
     textStyle: {
-        fontSize: 40
+        fontSize: 20
     }, 
     HeaderStyle1: {
-        fontSize: 30
+        fontSize: 20
     },
     subHeaderStyle: {
         fontSize: 20
