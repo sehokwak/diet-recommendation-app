@@ -30,11 +30,15 @@ def byIngredients(userItem, cuisine):
     'x-rapidapi-key': "85fe4b0aa1msh378a060a5f544fbp15e8edjsnc3884c1c12c4"
     }
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    response = requests.request("GET", url, headers=headers, params=querystring).json()
     
-    return response['results']
+    return response['results'] # a list of dicts
     
 
+userItem = {"restrictions": "fish", "fridge": "pasta, eggs, bread", "id": "JaeHee"}
+cuisine = "american"
+
+results = byIngredients(userItem, cuisine)
 
 
 

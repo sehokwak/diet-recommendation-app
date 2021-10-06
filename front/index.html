@@ -34,32 +34,46 @@
                     'nickname': name,
                     'restrictions': restrictions
                 }),
-                redirect: 'follow'
+                redirect: 'follow' 
             })
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
         }
 
+        // let resultsList = document.querySelector(".results-list");
+        // var rawResultsList;
+
         var getRecipeResults = (name, cuisine)=>{
-            fetch("https://sn6cqtn9fd.execute-api.ap-northeast-2.amazonaws.com/beta", {
-                method: 'GET',
+            fetch("https://sn6cqtn9fd.execute-api.ap-northeast-2.amazonaws.com/beta/recipes", {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                queryStringParameters: {
-                    "nickname": name,
-                    "cuisine": cuisine
-                },
+                body: JSON.stringify({
+                    'nickname': name,
+                    'cuisine': cuisine
+                }),
                 redirect: 'follow'
             })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                document.getElementById('results').innerHTML = data
+                document.getElementById("results").innerHTML = JSON.stringify(data.body);
             })
             .catch(error => console.log('error', error));
         }
+
+        // let resultItems = "";
+
+        // for (result of rawResultsList) {
+        //     resultItems += "<li>" + result + "</li>";
+        // }
+
+        // resultsList.innerHTML = resultItems;
+        let testName = "JaeHee Lee";
+        // document.getElementById("results").innerHTML = testName;
+
     </script>
 </head>
 <body>
@@ -84,9 +98,10 @@
         
     </form>
 
+    <!-- <p> Results: <ul class="results-list"></ul></p> -->
     <p> Results: <span id="results"></span></p>
     <!-- <script>
-        let name = "Nathan";
+        let name = ["Nathan", "paik"];
         document.getElementById("results").innerHTML = name;
     </script> -->
 </body>

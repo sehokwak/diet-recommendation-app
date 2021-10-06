@@ -53,13 +53,14 @@ def put_handler(event, context):
 
 # GET reads item in database
 def get_handler(event, context):
-    nickname = event['queryStringParameters']['nickname']
-    cuisine = event['queryStringParameters']['cuisine']
+    nickname = event['params']['nickname']
+    cuisine = event['params']['cuisine']
 
     response = table.get_item(
         Key={
             "id":nickname
         })
+
     
     recipes = getRecipes.byIngredients(response['Item'], cuisine)
 
@@ -84,10 +85,25 @@ def get_handler(event, context):
 
 def get_recipes(event, context):
     id = event['nickname']
+    cuisine = event['cuisine']
 
-    restrictions = table.get_item(
+    print('before getting item')
+    response = table.get_item(
         Key={
             'id':id
         })
 
     
+    print(f'reached {response}')
+
+    recipes = getRecipes.byIngredients(response['Item'], cuisine)
+
+    titles = []
+    for i in range(len(recipes)):
+        titles.append(recipes[i]['title'])
+
+    print(titles)
+    return {
+        "statusCode": 200,
+        "body": json.dumps(titles)
+    }
