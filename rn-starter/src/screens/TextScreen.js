@@ -41,8 +41,8 @@ const TextScreen = (hello) => {
             autoCorrect={false} 
             /> 
             <Text> Eggs, Broccoli, Beans, Chicken, Beef, Lamb, Milk</Text>
-
-
+            
+           
             <Button
             title="Next"
             onPress={() => hello.navigation.navigate('Analyze')}/>
