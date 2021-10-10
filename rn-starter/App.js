@@ -5,6 +5,8 @@ import ComponentsScreen from './src/screens/ComponentsScreen';
 import TextScreen from './src/screens/TextScreen';
 import analyze from './src/screens/analyze'; 
 import ListFoods from './src/screens/ListFoods'; 
+import styles from './src/screens/styles'; 
+
 
 
 
@@ -14,7 +16,8 @@ const navigator = createStackNavigator(
     Components: ComponentsScreen,  
     Text: TextScreen, 
     Analyze: analyze, 
-    List: ListFoods
+    List: ListFoods, 
+    Style: styles
   },
   {
     initialRouteName: 'Home',

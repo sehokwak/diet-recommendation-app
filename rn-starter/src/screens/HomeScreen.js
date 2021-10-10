@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold"
   }
+
 });
 
+
+
 export default HomeScreen;
+
+
+
+  
