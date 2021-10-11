@@ -6,8 +6,16 @@ import TextScreen from './src/screens/TextScreen';
 import analyze from './src/screens/analyze'; 
 import ListFoods from './src/screens/ListFoods'; 
 import styles from './src/screens/styles'; 
+import DietScreen from "./src/screens/DietScreen";
+import NameScreen from "./src/screens/NameScreen";
+import RestrictionScreen from "./src/screens/RestrictionScreen";
+import RecommendScreen from "./src/screens/RecommendScreen";
 
+import { Provider } from "react-redux";
+import configureStore from './src/store';
+import React from "react";
 
+const store = configureStore();
 
 
 const navigator = createStackNavigator(
@@ -17,7 +25,11 @@ const navigator = createStackNavigator(
     Text: TextScreen, 
     Analyze: analyze, 
     List: ListFoods, 
-    Style: styles
+    Style: styles,
+    Name: NameScreen,
+    Diet: DietScreen,
+    Restriction: RestrictionScreen,
+    Recommend: RecommendScreen
   },
   {
     initialRouteName: 'Home',
@@ -27,6 +39,10 @@ const navigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(navigator);
+const AppContainer = createAppContainer(navigator);
 
+export default () =>
+  <Provider store={store}>
+    <AppContainer/>
+  </Provider>;
 

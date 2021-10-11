@@ -14,7 +14,7 @@ const HomeScreen = (props) => {
     />
       <Button
       title="Start Trillion Box"
-      onPress={() => props.navigation.navigate('Text')}
+      onPress={() => props.navigation.navigate('Name')}
       />
   
   </View> 

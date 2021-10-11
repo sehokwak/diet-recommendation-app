@@ -1,8 +1,12 @@
 import React, {useState} from 'react'; 
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native'; 
+import { View, Text, StyleSheet, TextInput, Button, Checkbox } from 'react-native'; 
 
 const TextScreen = (hello) => {
     const [name, setName] = useState('')
+    const [diet, setDiet] = useState('')
+    const [restriction, setRestriction] = useState('')
+    const [preferences, setPreferences] = useState('')
+
     return (
         <View> 
             <Text>Enter your nickname: </Text>
@@ -10,7 +14,7 @@ const TextScreen = (hello) => {
             style={styles.input}
             autoCapitalize="none"
             autoCorrect={false} 
-            value = {name}
+            value = {name} 
             onChangeText={(newValue) => setName(newValue) }
             /> 
             <Text> Your nickname is {name} </Text>     
@@ -19,29 +23,35 @@ const TextScreen = (hello) => {
             <Text>What is your diet? Choose?: </Text>
             <TextInput 
             style={styles.input}
+            placeholder='paleo, pescetarian, vegan, vegetarian'
             autoCapitalize="none"
             autoCorrect={false} 
+            value = {diet} 
+            onChangeText={(newValue) => setDiet(newValue) }
             /> 
-            <Text> Vegan, Vegetarian, Gluten-Free, None</Text>
             <Text>                            </Text>
             <Text>                            </Text>
             <Text>Food Restrictions? </Text>
             <TextInput 
             style={styles.input}
+            placeholder='dairy, egg, gluten, peanut, sesame, etc.'
             autoCapitalize="none"
             autoCorrect={false} 
+            value = {restriction} 
+            onChangeText={(newValue) => setRestriction(newValue) }
             /> 
-            <Text> Peanuts, Soy, Pork, Eggs, Dairy, Fish, Wheat, None</Text>
             <Text>                            </Text>
             <Text>                            </Text>
             <Text>Preferred Food? What is in your Fridge? </Text>
             <TextInput 
             style={styles.input}
+            placeholder='eggs, broccoli, beans, chicken, onions, etc.'
             autoCapitalize="none"
             autoCorrect={false} 
+            value = {preferences} 
+            onChangeText={(newValue) => setPreferences(newValue) }
             /> 
-            <Text> Eggs, Broccoli, Beans, Chicken, Beef, Lamb, Milk</Text>
-            
+                        
            
             <Button
             title="Next"
