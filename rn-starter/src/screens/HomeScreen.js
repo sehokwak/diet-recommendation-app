@@ -1,47 +1,44 @@
-import React from "react";
-import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
+import React from 'react';
+import { View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
-const HomeScreen = (props) => {
-
-  return( 
-  <View>
-
-    <Text style={styles.text}>Trillion Box</Text>
-
-    <Button 
-    onPress={() => props.navigation.navigate('Components')}
-    title= "App Instructions"
-    />
-      <Button
-      title="Start Trillion Box"
-      onPress={() => props.navigation.navigate('Name')}
+const Homescreen = (props) => {
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.stretch}
+        source={require('../../assets/Slice_2.png')}
       />
-  
-  </View> 
+      <TouchableOpacity 
+      style={styles.button} 
+      onPress={() => props.navigation.navigate('Name')}
+      >
+          <Image source={require('../../assets/Slice_4.png')}/>
+        </TouchableOpacity>
+      
+    </View>
   );
-};
-
+}
 
 const styles = StyleSheet.create({
-
-  text: {
-    marginTop: 100,
-    paddingVertical: 8,
-    borderWidth: 2,
-    borderColor: "#20232a",
-    borderRadius: 6,
-    backgroundColor: "#f3fb61",
-    color: "#20232a",
-    textAlign: "center",
-    fontSize: 30,
-    fontWeight: "bold"
-  }
-
+  container: {
+    paddingTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 50, 
+  },
+  stretch: {
+    width: 600,
+    height: 400,
+    resizeMode: 'stretch',
+  },
+  button: {
+    alignItems: "center",
+    width: 350,
+    height: 90, 
+  },
 });
 
-
-
-export default HomeScreen;
+export default Homescreen;
 
 
 
