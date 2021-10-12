@@ -9,10 +9,13 @@ const Homescreen = (props) => {
         source={require('../../assets/Slice_2.png')}
       />
       <TouchableOpacity 
-      style={styles.button} 
       onPress={() => props.navigation.navigate('Name')}
       >
-          <Image source={require('../../assets/Slice_4.png')}/>
+          <Image 
+          source={require('../../assets/Slice_4.png')}
+          style={styles.button} 
+
+          />
         </TouchableOpacity>
       
     </View>
@@ -20,21 +23,25 @@ const Homescreen = (props) => {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     paddingTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 50, 
+    backgroundColor: "#feeae9", 
+
   },
   stretch: {
-    width: 600,
-    height: 400,
+    width: 375, 
+    height: 450,
     resizeMode: 'stretch',
   },
   button: {
     alignItems: "center",
-    width: 350,
-    height: 90, 
+    width: 200,
+    height: 100, 
+    top: 10
   },
 });
 
