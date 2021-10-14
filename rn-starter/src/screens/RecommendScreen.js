@@ -57,8 +57,14 @@ const RecommendScreen = ({navigation}) => {
   }
 
   return (
+<<<<<<< HEAD
     <View>
       {/* <Text>{nickname}, what cuisine would you like?</Text>
+=======
+
+    <View>  
+      <Text>{nickname}, what cuisine would you like?</Text>
+>>>>>>> origin/master
       <TextInput 
         style={styles.input}
         autoCapitalize="none"
@@ -84,11 +90,13 @@ const RecommendScreen = ({navigation}) => {
         data={Recipes}
         renderItem={({item}) => <Text>{item.key}</Text>}
       />}
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+
   input: {
     margin: 20, 
     borderColor: 'black', 
@@ -98,3 +106,4 @@ const styles = StyleSheet.create({
 
 
 export default RecommendScreen;
+

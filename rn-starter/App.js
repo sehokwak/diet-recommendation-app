@@ -6,6 +6,9 @@ import DietScreen from "./src/screens/DietScreen";
 import NameScreen from "./src/screens/NameScreen";
 import RestrictionScreen from "./src/screens/RestrictionScreen";
 import RecommendScreen from "./src/screens/RecommendScreen";
+import IngredientList from "./src/screens/IngredientList";
+
+
 
 import { Provider } from "react-redux";
 import configureStore from './src/store';
@@ -21,7 +24,9 @@ const navigator = createStackNavigator(
     Name: NameScreen,
     Diet: DietScreen,
     Restriction: RestrictionScreen,
-    Recommend: RecommendScreen
+    Recommend: RecommendScreen, 
+    Ingredient: IngredientList,
+    
   },
   {
     initialRouteName: 'Home',

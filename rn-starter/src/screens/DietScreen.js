@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addDiet } from '../actions/actions';
 
 
-
+// lacto vegetarian, ovo vegetarian, primal, 
 
 const DietScreen = ({navigation}) => {
   
@@ -22,9 +22,11 @@ const DietScreen = ({navigation}) => {
   };
 
   return (
-    <View>
-      <Text>Hi {nickname}, select your diet style</Text>
-      
+
+    <View style={styles.container}>   
+    
+      <Text style={styles.titleText}>Hi {nickname}, select your diet style! </Text>
+
       <Button
       title="Pescetarian"
       onPress={() => setPescetarian(!pescetarian)}
@@ -70,7 +72,20 @@ const DietScreen = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#feeae9", 
+    alignItems: 'center'
+  },
+  titleText: {
+    color: "#121212", 
+    fontSize: 21, 
+   
+  }, 
+});
 
 
 export default DietScreen;
+
+// Page 3 

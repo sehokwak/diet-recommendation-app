@@ -4,12 +4,12 @@ import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
 const Analyze = (hi) => {
 
   return( 
-  <View>
+  <View style={styles.backgroundPage}>
 
     <Text style={styles.text}>Analyzing Data</Text>
     <Button
-            title="Next"
-            onPress={() => hi.navigation.navigate('List')}/>
+            title="See the results!! "
+            onPress={() => hi.navigation.navigate('Recommend')}/>
 
   
   </View> 
@@ -18,18 +18,25 @@ const Analyze = (hi) => {
 
 
 const styles = StyleSheet.create({
+  backgroundPage:{
+    flex: 1,
+    backgroundColor: "#feeae9", 
+    alignItems: 'center'
+
+  },
 
     text: {
-      marginTop: 100,
-      paddingVertical: 8,
+      marginTop: 200,
+      paddingVertical: 20,
       borderWidth: 1,
-      borderColor: "#20232a",
+      borderColor: 'white',
       borderRadius: 6,
-      backgroundColor: "#f3fb61",
+      backgroundColor: "white",
       color: "#20232a",
       textAlign: "center",
       fontSize: 30,
-      fontWeight: "bold"
     }
   });
 export default Analyze;
+
+// Page 6 
