@@ -61,7 +61,8 @@ const RecommendScreen = ({navigation}) => {
   }
 
   return (
-    <View>
+
+    <View>  
       <Text>{nickname}, what cuisine would you like?</Text>
       <TextInput 
         style={styles.input}
@@ -88,11 +89,13 @@ const RecommendScreen = ({navigation}) => {
         data={Recipes}
         renderItem={({item}) => <Text>{item.key}</Text>}
       />}
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+
   input: {
     margin: 20, 
     borderColor: 'black', 
@@ -102,3 +105,4 @@ const styles = StyleSheet.create({
 
 
 export default RecommendScreen;
+

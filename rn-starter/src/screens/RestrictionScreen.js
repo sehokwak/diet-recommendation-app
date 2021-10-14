@@ -20,8 +20,9 @@ const RestrictionScreen = ({navigation}) => {
   };
 
   return (
-    <View>
-      <Text>Hi {nickname}, select your food restrictions:</Text>
+    <View style={styles.container}>   
+
+      <Text style={styles.titleText}>Hi {nickname}, select your food restrictions:</Text>
       <Button
       title="Dairy"
       onPress={() => setDairy(!dairy)}
@@ -53,14 +54,26 @@ const RestrictionScreen = ({navigation}) => {
         addToList("egg", egg)
         addToList("gluten", gluten)
         addToList("peanut", peanut)
-        navigation.navigate('Recommend')
+        navigation.navigate('Analyze')
       }}/>
 
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#feeae9", 
+    alignItems: 'center'
+  },
+  titleText: {
+    color: "#121212", 
+    fontSize: 20, 
+  }
+});
 
 
 export default RestrictionScreen;
+
+// Page 4 
