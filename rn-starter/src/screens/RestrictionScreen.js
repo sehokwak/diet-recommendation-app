@@ -1,5 +1,5 @@
 import React, {useState} from 'react'; 
-import { Button, FlatList, ListItem, Text, StyleSheet, View } from 'react-native';
+import { Button, ScrollView, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRestr } from '../actions/actions';
 
@@ -14,7 +14,8 @@ const RestrictionScreen = ({navigation}) => {
   const [sesame, setSesame] = useState(false);
   const [seafood, setSeafood] = useState(false);
   const [shellfish, setShellfish] = useState(false);
-  const [soy, setSoy]   = useState(false);
+  const [soy, setSoy] = useState(false);
+  const [sulfite, setSulfite] = useState(false);
   const [treenut, setTreenut] = useState(false);
   const [wheat, setWheat] = useState(false);
 
@@ -28,7 +29,7 @@ const RestrictionScreen = ({navigation}) => {
 
 
   return (
-    <View style={styles.container}>   
+    <ScrollView style={styles.container}>   
 
       <Text style={styles.titleText}>Hi {nickname}, select your food restrictions:</Text>
       <Button
@@ -80,6 +81,12 @@ const RestrictionScreen = ({navigation}) => {
       <Text> {soy ? "You've selected soy" : ''} </Text>
 
       <Button
+      title="Sulfite"
+      onPress={() => setSulfite(!sulfite)}
+      />
+      <Text> {sulfite ? "You've selected sulfite" : ''} </Text>
+
+      <Button
       title="Tree Nut"
       onPress={() => setTreenut(!treenut)}
       />
@@ -102,12 +109,13 @@ const RestrictionScreen = ({navigation}) => {
         addToList("seafood", seafood)
         addToList("shellfish", shellfish)
         addToList("soy", soy)
+        addToList("sulfite", sulfite)
         addToList("tree nut", treenut)
         addToList("wheat", wheat)
         navigation.navigate('Analyze')
       }}/>
 
-    </View>
+    </ScrollView>
   );
 };
 
@@ -115,7 +123,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#feeae9", 
-    alignItems: 'center'
+    // alignItems: 'center'
   },
   titleText: {
     color: "#121212", 

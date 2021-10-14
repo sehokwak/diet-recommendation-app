@@ -1,34 +1,38 @@
 import React, {useState} from 'react'; 
-import { Button, FlatList, Text, TextInput, StyleSheet, View } from 'react-native';
+import { Button, FlatList, Text,  StyleSheet, ScrollView, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 
 const RecommendScreen = ({navigation}) => {
   const [showList, setShowList] = useState(false)
   const [Recipes, setRecipes] = useState([])
-
+  const [offset, setOffset] = useState(0);
+  const [title, setTitle] = useState('See Recommendations!')
+  const [buttonSelected, setButton] = useState(false)
+  
   const dispatch = useDispatch();
 
   const nickname = useSelector(state => state.nameReducer.nickname)
   const dietList = useSelector(state => state.foodReducer.dietList)
   const restrictions = useSelector(state => state.foodReducer.restrList)
   
-  const [cuisine, setCuisine] = useState('');
-  const [query, setQuery] = useState('');
+  // const [cuisine, setCuisine] = useState('');
+  // const [query, setQuery] = useState('');
   
   
   const options = {
     method: 'GET',
     url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
     params: {
-      query: query,
+      query: '',
       diet: dietList.toString(),
       intolerances: restrictions.toString(),
-      number: '10',
-      offset: '0',
-      cuisine: cuisine,
+      number: '50',
+      offset: offset.toString(),
+      cuisine: '',
       type: ''
     },
     headers: {
@@ -37,11 +41,20 @@ const RecommendScreen = ({navigation}) => {
     }
   };
 
+  const updateResults = (currentList) => {
+    if (currentList.length != 0) {
+      setOffset(offset + currentList.length);
+
+    }
+  }
   
   const displayFunction = (recipeList) => {
     var tempL = [];
     for (let i = 0; i < recipeList.length; i++) {
-      tempL = tempL.concat({key: recipeList[i]["title"]});
+      tempL = tempL.concat({
+        id: recipeList[i]["id"].toString(),
+        title: recipeList[i]["title"]
+      });
     }
     return tempL;
   }
@@ -57,14 +70,8 @@ const RecommendScreen = ({navigation}) => {
   }
 
   return (
-<<<<<<< HEAD
     <View>
       {/* <Text>{nickname}, what cuisine would you like?</Text>
-=======
-
-    <View>  
-      <Text>{nickname}, what cuisine would you like?</Text>
->>>>>>> origin/master
       <TextInput 
         style={styles.input}
         autoCapitalize="none"
@@ -81,29 +88,46 @@ const RecommendScreen = ({navigation}) => {
         onChangeText={(newValue) => setQuery(newValue) }
         />  */}
       <Button
-        title="See Recommendations"
+        title={title}
         onPress={() => {
+          updateResults(Recipes)
           callAPI()
           setShowList(true)
+          setTitle("Refresh Results")
         }}/>
       { (showList) && <FlatList
         data={Recipes}
-        renderItem={({item}) => <Text>{item.key}</Text>}
+        renderItem={({item}) => 
+          <TouchableHighlight
+            onPress={() => {
+              setButton(!buttonSelected)
+            }}>
+            <View style={styles.button}>
+              <Text>{item.title}</Text>
+            </View>
+            {/* //TODO: create new global list with menu ID's, append to array */}
+          </TouchableHighlight>
+          
+        }
       />}
-
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+// const buttonColor = buttonSelected ? "rgb(52, 199, 89)" : "rgb(0, 122, 255)"
 
+const styles = StyleSheet.create({
   input: {
     margin: 20, 
     borderColor: 'black', 
     borderWidth: 1
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10
   }
 });
 
 
 export default RecommendScreen;
-
