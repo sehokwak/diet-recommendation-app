@@ -21,19 +21,15 @@ const RecommendScreen = ({navigation}) => {
   
   const options = {
     method: 'GET',
-    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex',
+    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
     params: {
-      limitLicense: 'true',
-      offset: '0',
-      number: '10',
+      query: query,
       diet: dietList.toString(),
       intolerances: restrictions.toString(),
-      ranking: '2',
-      excludeIngredients: 'peanut',
+      number: '10',
+      offset: '0',
       cuisine: cuisine,
-      query: query,
-      includeIngredients: '',
-      type: 'main course'
+      type: ''
     },
     headers: {
       'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
@@ -62,7 +58,7 @@ const RecommendScreen = ({navigation}) => {
 
   return (
     <View>
-      <Text>{nickname}, what cuisine would you like?</Text>
+      {/* <Text>{nickname}, what cuisine would you like?</Text>
       <TextInput 
         style={styles.input}
         autoCapitalize="none"
@@ -77,7 +73,7 @@ const RecommendScreen = ({navigation}) => {
         autoCorrect={false} 
         placeholder='Burger, Taco, etc.'
         onChangeText={(newValue) => setQuery(newValue) }
-        /> 
+        />  */}
       <Button
         title="See Recommendations"
         onPress={() => {

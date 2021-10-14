@@ -11,6 +11,13 @@ const RestrictionScreen = ({navigation}) => {
   const [egg, setEgg] = useState(false);
   const [gluten, setGluten] = useState(false);
   const [peanut, setPeanut]   = useState(false);
+  const [sesame, setSesame] = useState(false);
+  const [seafood, setSeafood] = useState(false);
+  const [shellfish, setShellfish] = useState(false);
+  const [soy, setSoy]   = useState(false);
+  const [treenut, setTreenut] = useState(false);
+  const [wheat, setWheat] = useState(false);
+
 
   const nickname = useSelector(state => state.nameReducer.nickname)
   
@@ -18,6 +25,7 @@ const RestrictionScreen = ({navigation}) => {
   const addToList = (food, bool) => {
     if (bool) dispatch(addRestr(food))
   };
+
 
   return (
     <View>
@@ -29,10 +37,10 @@ const RestrictionScreen = ({navigation}) => {
       <Text> {dairy ? "You've selected dairy" : ''} </Text>
 
       <Button
-      title="Eggs"
+      title="Egg"
       onPress={() => setEgg(!egg)}
       />
-      <Text> {egg ? "You've selected eggs" : ''} </Text>
+      <Text> {egg ? "You've selected egg" : ''} </Text>
 
       <Button
       title="Gluten"
@@ -41,10 +49,46 @@ const RestrictionScreen = ({navigation}) => {
       <Text> {gluten ? "You've selected gluten" : ''} </Text>
 
       <Button
-      title="Peanuts"
+      title="Peanut"
       onPress={() => setPeanut(!peanut)}
       />
-      <Text> {peanut ? "You've selected peanuts" : ''} </Text>
+      <Text> {peanut ? "You've selected peanut" : ''} </Text>
+
+      <Button
+      title="Sesame"
+      onPress={() => setSesame(!sesame)}
+      />
+      <Text> {sesame ? "You've selected sesame" : ''} </Text>
+
+      <Button
+      title="Seafood"
+      onPress={() => setSeafood(!seafood)}
+      />
+      <Text> {seafood ? "You've selected seafood" : ''} </Text>
+
+      <Button
+      title="Shellfish"
+      onPress={() => setShellfish(!shellfish)}
+      />
+      <Text> {shellfish ? "You've selected shellfish" : ''} </Text>
+
+      <Button
+      title="Soy"
+      onPress={() => setSoy(!soy)}
+      />
+      <Text> {soy ? "You've selected soy" : ''} </Text>
+
+      <Button
+      title="Tree Nut"
+      onPress={() => setTreenut(!treenut)}
+      />
+      <Text> {treenut ? "You've selected tree nut" : ''} </Text>
+      
+      <Button
+      title="Wheat"
+      onPress={() => setWheat(!wheat)}
+      />
+      <Text> {wheat ? "You've selected wheat" : ''} </Text>      
 
       <Button
       title="Next"
@@ -53,6 +97,12 @@ const RestrictionScreen = ({navigation}) => {
         addToList("egg", egg)
         addToList("gluten", gluten)
         addToList("peanut", peanut)
+        addToList("sesame", sesame)
+        addToList("seafood", seafood)
+        addToList("shellfish", shellfish)
+        addToList("soy", soy)
+        addToList("tree nut", treenut)
+        addToList("wheat", wheat)
         navigation.navigate('Recommend')
       }}/>
 
