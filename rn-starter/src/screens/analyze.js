@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, Button, TouchableOpacity, Image} from "react-native";
 
 const Analyze = (hi) => {
 
@@ -7,7 +7,11 @@ const Analyze = (hi) => {
   <View style={styles.backgroundPage}>
     
 
-    <Text style={styles.text}>Analyzing Data</Text>
+    <Image
+        source={require('../../assets/analyze_gif.gif')}
+        style={{width: 320, height: 500 }}
+
+      />
     <Button
             title="See the results!! "
             onPress={() => hi.navigation.navigate('Recommend')}/>
@@ -21,18 +25,10 @@ const Analyze = (hi) => {
 const styles = StyleSheet.create({
   backgroundPage:{
     flex: 1,
-    backgroundColor: "#feeae9", 
+    backgroundColor: "#fecbc2", 
     alignItems: 'center'
 
-  },
-  
-
-    text: {
-      marginTop: 150,
-      color: "#f08080",
-      textAlign: "center",
-      fontSize: 35,
-    }
+  }
   });
 export default Analyze;
 
