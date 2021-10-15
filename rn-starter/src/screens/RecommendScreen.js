@@ -30,7 +30,7 @@ const RecommendScreen = ({navigation}) => {
       query: '',
       diet: dietList.toString(),
       intolerances: restrictions.toString(),
-      number: '50',
+      number: '100',
       offset: offset.toString(),
       cuisine: '',
       type: ''
@@ -70,7 +70,8 @@ const RecommendScreen = ({navigation}) => {
   }
 
   return (
-    <View>
+    <ScrollView style={styles.container}>   
+
       {/* <Text>{nickname}, what cuisine would you like?</Text>
       <TextInput 
         style={styles.input}
@@ -110,21 +111,26 @@ const RecommendScreen = ({navigation}) => {
           
         }
       />}
-    </View>
+    </ScrollView>
   );
 };
 
 // const buttonColor = buttonSelected ? "rgb(52, 199, 89)" : "rgb(0, 122, 255)"
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fffff0", 
+    // alignItems: 'center'
+  },
   input: {
-    margin: 20, 
-    borderColor: 'black', 
+    margin: 10, 
+    borderColor: 'white', 
     borderWidth: 1
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    backgroundColor: "#feeae9",
     padding: 10
   }
 });

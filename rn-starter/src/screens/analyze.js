@@ -5,6 +5,7 @@ const Analyze = (hi) => {
 
   return( 
   <View style={styles.backgroundPage}>
+    
 
     <Text style={styles.text}>Analyzing Data</Text>
     <Button
@@ -24,17 +25,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
 
   },
+  
 
     text: {
-      marginTop: 200,
-      paddingVertical: 20,
-      borderWidth: 1,
-      borderColor: 'white',
-      borderRadius: 6,
-      backgroundColor: "white",
-      color: "#20232a",
+      marginTop: 150,
+      color: "#f08080",
       textAlign: "center",
-      fontSize: 30,
+      fontSize: 35,
     }
   });
 export default Analyze;
