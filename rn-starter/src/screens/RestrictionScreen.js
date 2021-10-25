@@ -1,9 +1,7 @@
 import React, {useState} from 'react'; 
-import { Button, ScrollView, Text, StyleSheet } from 'react-native';
+import { Button, ScrollView, Text, StyleSheet} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRestr } from '../actions/actions';
-
-
 
 
 const RestrictionScreen = ({navigation}) => {
@@ -29,6 +27,7 @@ const RestrictionScreen = ({navigation}) => {
 
 
   return (
+
     <ScrollView style={styles.container}>   
 
       <Text style={styles.titleText}>Hi {nickname}, select your food restrictions:</Text>
