@@ -1,5 +1,5 @@
 import React, {useState} from 'react'; 
-import { Button, FlatList, Text,  StyleSheet, ScrollView, View } from 'react-native';
+import { Button, FlatList, Image, Text, RefreshControl,  StyleSheet, ScrollView, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { TouchableHighlight } from 'react-native-gesture-handler';
@@ -7,11 +7,26 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 const RecommendScreen = ({navigation}) => {
+  const [showImage, setShowImage] = useState(true)
   const [showList, setShowList] = useState(false)
   const [Recipes, setRecipes] = useState([])
   const [offset, setOffset] = useState(0);
-  const [title, setTitle] = useState('See Recommendations!')
-  const [buttonSelected, setButton] = useState(false)
+  const [title, setTitle] = useState('See the results!!')
+  const [selectRecipe, setSelectRecipe] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
+
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+  const onRefresh = (() => {
+    updateResults(Recipes)
+    callAPI()
+    setShowList(true)
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  });
+
+  const [checkList, setList] = useState([])
   
   const dispatch = useDispatch();
 
@@ -70,54 +85,63 @@ const RecommendScreen = ({navigation}) => {
   }
 
   return (
-    <ScrollView style={styles.container}>   
-
-      {/* <Text>{nickname}, what cuisine would you like?</Text>
-      <TextInput 
-        style={styles.input}
-        autoCapitalize="none"
-        autoCorrect={false} 
-        placeholder='American, Thai, Korean, Chinese etc.'
-        onChangeText={(newValue) => setCuisine(newValue) }
-        /> 
-      <Text>What would you like to eat?</Text>
-      <TextInput 
-        style={styles.input}
-        autoCapitalize="none"
-        autoCorrect={false} 
-        placeholder='Burger, Taco, etc.'
-        onChangeText={(newValue) => setQuery(newValue) }
-        />  */}
+    <View style={styles.backgroundPage}>
+      {(showImage) && <Image
+        source={require('../../assets/analyze_gif.gif')}
+        style={{width: 320, height: 500 }}
+      />}
       <Button
         title={title}
         onPress={() => {
-          updateResults(Recipes)
-          callAPI()
-          setShowList(true)
-          setTitle("Refresh Results")
+          setShowImage(false)
+          if (showImage) {
+            callAPI()
+            setShowList(true)
+            setTitle("Next")
+          } else {
+            navigation.navigate('Restriction')
+          }
+          
         }}/>
       { (showList) && <FlatList
+        refreshControl={<RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+        }
         data={Recipes}
-        renderItem={({item}) => 
-          <TouchableHighlight
-            style={[styles.button, ]}
-            key={item.id}
-            onPress={() => {
-              setButton(!buttonSelected)
-            }}>
-            <View style={[styles.button, {backgroundColor:buttonSelected ? "rgb(52, 199, 89)" : "rgb(0, 122, 255)"}]}>
+        renderItem={({item}) => {
+          const bgColor = checkList.includes(item.title) ? "#e9b0ad" :  "#feeae9"; 
+          return (
+            <TouchableHighlight
+              key={item.id}
+              onPress={() => { 
+                const tempList = checkList;
+                if (!checkList.includes(item.title)) {
+                  tempList.push(item.title)
+                } else {
+                  var ind = tempList.indexOf(item.title)
+                  tempList.splice(ind, 1)
+                }
+                setList(tempList)
+                setSelectRecipe(!selectRecipe)
+                console.log(checkList)
+              }}
+            >
+            <View style={[styles.button, {backgroundColor:bgColor}]}>
               <Text>{item.title}</Text>
             </View>
             {/* //TODO: create new global list with menu ID's, append to array */}
-          </TouchableHighlight>
-          
-        }
+            </TouchableHighlight>
+          )
+        }}
+        extraData={selectRecipe}
       />}
-    </ScrollView>
+     
+    </View>
   );
 };
 
-// const buttonColor = buttonSelected ? "rgb(52, 199, 89)" : "rgb(0, 122, 255)"
 
 const styles = StyleSheet.create({
   container: {
@@ -134,6 +158,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#feeae9",
     padding: 10
+  },
+  backgroundPage:{
+    flex: 1,
+    backgroundColor: "#fecbc2", 
+    alignItems: 'center'
+
   }
 });
 
