@@ -1,4 +1,4 @@
-import { ADD_DIET, DELETE_DIET, SET_NAME, ADD_RESTR, DELETE_RESTR} from "./types";
+import { ADD_DIET, DELETE_DIET, SET_NAME, ADD_RESTR, DELETE_RESTR, SET_SELECTED_LIST} from "./types";
 
 export const addDiet = (food) => ({
   type: ADD_DIET,
@@ -23,4 +23,9 @@ export const addRestr = (food) => ({
 export const delRestr = (key) => ({
   type: DELETE_RESTR,
   key: key
+})
+
+export const setSelectedList = (list) => ({
+  type: SET_SELECTED_LIST,
+  list: list
 })

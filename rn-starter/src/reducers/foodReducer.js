@@ -1,8 +1,9 @@
-import { ADD_DIET, ADD_RESTR, DELETE_DIET, SET_NAME } from "../actions/types";
+import { ADD_DIET, ADD_RESTR, DELETE_DIET, SET_NAME, SET_SELECTED_LIST } from "../actions/types";
 
 const initialState = {
   dietList: [],
-  restrList: []
+  restrList: [],
+  selectedList: []
 }
 
 const foodReducer = (state = initialState, action) => {
@@ -28,7 +29,12 @@ const foodReducer = (state = initialState, action) => {
         ...state,
         restrList: state.restrList.filter((item) =>
           item.key != action.key)
-        };    
+        };
+    case SET_SELECTED_LIST:
+      return {
+        ...state,
+        selectedList: action.list
+      };
     default:
       return state;
     }

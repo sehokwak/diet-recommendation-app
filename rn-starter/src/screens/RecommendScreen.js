@@ -3,6 +3,7 @@ import { Button, FlatList, Image, Text, RefreshControl,  StyleSheet, ScrollView,
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { setSelectedList } from '../actions/actions';
 
 
 
@@ -14,6 +15,8 @@ const RecommendScreen = ({navigation}) => {
   const [title, setTitle] = useState('See the results!!')
   const [selectRecipe, setSelectRecipe] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+  const [checkList, setList] = useState([])
+
 
   const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -26,16 +29,15 @@ const RecommendScreen = ({navigation}) => {
     wait(2000).then(() => setRefreshing(false));
   });
 
-  const [checkList, setList] = useState([])
+  
   
   const dispatch = useDispatch();
-
+  const submitSelectedList = (list) => dispatch(setSelectedList(list))
+    
   const nickname = useSelector(state => state.nameReducer.nickname)
   const dietList = useSelector(state => state.foodReducer.dietList)
   const restrictions = useSelector(state => state.foodReducer.restrList)
-  
-  // const [cuisine, setCuisine] = useState('');
-  // const [query, setQuery] = useState('');
+
   
   
   const options = {
@@ -97,9 +99,10 @@ const RecommendScreen = ({navigation}) => {
           if (showImage) {
             callAPI()
             setShowList(true)
-            setTitle("Next")
+            setTitle("See Recipes")
           } else {
-            navigation.navigate('Restriction')
+            submitSelectedList(checkList)
+            navigation.navigate("ResultsTwo")
           }
           
         }}/>
@@ -111,16 +114,17 @@ const RecommendScreen = ({navigation}) => {
         }
         data={Recipes}
         renderItem={({item}) => {
-          const bgColor = checkList.includes(item.title) ? "#e9b0ad" :  "#feeae9"; 
+          const bgColor = checkList.some(rec => rec.id === item.id) ? "#fecbc2" :  "#feeae9"; 
           return (
             <TouchableHighlight
               key={item.id}
               onPress={() => { 
+                const recipeObject = {id: item.id, title: item.title}
                 const tempList = checkList;
-                if (!checkList.includes(item.title)) {
-                  tempList.push(item.title)
+                if (!checkList.some(rec => rec.id === item.id)) {
+                  tempList.push(recipeObject)
                 } else {
-                  var ind = tempList.indexOf(item.title)
+                  var ind = tempList.findIndex(rec => rec.id === item.id)
                   tempList.splice(ind, 1)
                 }
                 setList(tempList)
@@ -131,7 +135,6 @@ const RecommendScreen = ({navigation}) => {
             <View style={[styles.button, {backgroundColor:bgColor}]}>
               <Text>{item.title}</Text>
             </View>
-            {/* //TODO: create new global list with menu ID's, append to array */}
             </TouchableHighlight>
           )
         }}

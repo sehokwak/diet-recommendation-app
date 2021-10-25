@@ -111,7 +111,7 @@ const RestrictionScreen = ({navigation}) => {
         addToList("sulfite", sulfite)
         addToList("tree nut", treenut)
         addToList("wheat", wheat)
-        navigation.navigate('Analyze')
+        navigation.navigate('Recommend')
       }}/>
 
     </ScrollView>
