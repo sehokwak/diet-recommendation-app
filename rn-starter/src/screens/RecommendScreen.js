@@ -99,10 +99,12 @@ const RecommendScreen = ({navigation}) => {
         data={Recipes}
         renderItem={({item}) => 
           <TouchableHighlight
+            style={[styles.button, ]}
+            key={item.id}
             onPress={() => {
               setButton(!buttonSelected)
             }}>
-            <View style={styles.button}>
+            <View style={[styles.button, {backgroundColor:buttonSelected ? "rgb(52, 199, 89)" : "rgb(0, 122, 255)"}]}>
               <Text>{item.title}</Text>
             </View>
             {/* //TODO: create new global list with menu ID's, append to array */}
