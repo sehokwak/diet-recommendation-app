@@ -16,7 +16,7 @@ const RecommendScreen = ({navigation}) => {
   const [selectRecipe, setSelectRecipe] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
   const [checkList, setList] = useState([])
-
+  
 
   const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -32,14 +32,16 @@ const RecommendScreen = ({navigation}) => {
   
   
   const dispatch = useDispatch();
-  const submitSelectedList = (list) => dispatch(setSelectedList(list))
-    
+  const submitSelectedList = (list) => {
+    dispatch(setSelectedList(list));
+  }
+
   const nickname = useSelector(state => state.nameReducer.nickname)
   const dietList = useSelector(state => state.foodReducer.dietList)
   const restrictions = useSelector(state => state.foodReducer.restrList)
 
   
-  
+  /* API call for getting list of recipes */
   const options = {
     method: 'GET',
     url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
@@ -85,6 +87,8 @@ const RecommendScreen = ({navigation}) => {
       console.error(error);
     });
   }
+  /* end first api call */
+
 
   return (
     <View style={styles.backgroundPage}>
