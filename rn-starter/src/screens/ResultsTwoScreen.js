@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Text, FlatList, TouchableOpacity, TouchableHighlight} from 'react-native';
+import { View, SafeAreaView, Image, ScrollView, StyleSheet, Text, StatusBar, FlatList, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { useSelector } from 'react-redux';
 import Accordion from 'react-native-collapsible/Accordion';
 import axios from 'axios';
 
-const ResultsTwoScreen = () => {
+const ResultsTwoScreen = ({navigation}) => {
   const nickname = useSelector(state => state.nameReducer.nickname)
   const selectedList = useSelector(state => state.foodReducer.selectedList)
   
@@ -23,13 +23,31 @@ const ResultsTwoScreen = () => {
     }
   }};
   
-  const extractInstructions = (recipeList) => {
+  const extractInstructions = (data) => {
+    var temp = "\n Instructions: \n";
+    for (let i = 0; i < data.length; i++){
+      temp = temp.concat(" ", i+1, ". ", data[i]["step"], "\n\n")
+    };
+    return temp;
+  }
+
+  const extractIngredients = (data) => {
+    var temp = "\n Ingredients: \n";
+    for (let i = 0; i < data.length; i++) {
+      temp = temp.concat(" ", data[i]["originalString"], "\n")
+    };
+    return temp;
+  }
+
+  const extractData = (data) => {
     var tempL = [];
-    for (let i = 0; i < recipeList.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       tempL = tempL.concat({
-        id: recipeList[i]["id"].toString(),
-        title: recipeList[i]["title"],
-        instructions: recipeList[i]["instructions"]
+        id: data[i]["id"].toString(),
+        title: data[i]["title"],
+        instructions2: extractInstructions(data[i]["analyzedInstructions"][0]["steps"]),
+        image: data[i]["image"],
+        ingredients: extractIngredients(data[i]["extendedIngredients"])
       });
     }
     return tempL;
@@ -38,7 +56,7 @@ const ResultsTwoScreen = () => {
   const callAPI2 = (id) => {
     axios.request(options2(id))
       .then(function (response) {
-        const newList = extractInstructions(response.data);
+        const newList = extractData(response.data);
         setInstructionsList(newList);
       }).catch(function (error) {
         console.error(error);
@@ -65,9 +83,15 @@ const ResultsTwoScreen = () => {
 
   const renderContent = (section) => {
     return (
-      <View >
-        <Text >{section.instructions}</Text>
-      </View>
+      <ScrollView>
+        <Image
+          style={{ width: 350, height: 250, alignSelf: 'center'}}
+          source={{uri: section.image
+          }}
+        />
+        <Text >{section.ingredients}</Text>
+        <Text >{section.instructions2}</Text>
+      </ScrollView>
     )
   }
 
@@ -76,9 +100,8 @@ const ResultsTwoScreen = () => {
   };
 
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
       <Text >Hi {nickname}, here are your recipes !</Text>
-
       <Accordion
         activeSections={activeSections}
         sections={instructionsList} // API CALL ISNT WORKING PROPERLY FOR List
@@ -89,12 +112,15 @@ const ResultsTwoScreen = () => {
         duration={400}
         onChange={setSections}
       />
-      
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+  },
   button: {
     alignItems: "center",
     backgroundColor: "#feeae9",
