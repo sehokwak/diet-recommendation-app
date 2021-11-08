@@ -15,9 +15,9 @@ export const addName = (name) => ({
   name: name
 })
 
-export const addRestr = (food) => ({
+export const addRestr = (list) => ({
   type: ADD_RESTR,
-  data: food
+  data: list
 })
 
 export const delRestr = (key) => ({

@@ -11,7 +11,7 @@ const foodReducer = (state = initialState, action) => {
     case ADD_DIET:
       return {
         ...state,
-        dietList: state.dietList.concat(action.data)
+        dietList: action.data
         };
     case DELETE_DIET:
       return {
@@ -22,7 +22,7 @@ const foodReducer = (state = initialState, action) => {
     case ADD_RESTR:
       return {
         ...state,
-        restrList: state.restrList.concat(action.data)
+        restrList: action.data
         };
     case DELETE_DIET:
       return {

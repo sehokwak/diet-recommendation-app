@@ -89,6 +89,7 @@ const RecommendScreen = ({navigation}) => {
   }
   /* end first api call */
 
+  console.log(dietList.toString())
 
   return (
     <View style={styles.backgroundPage}>
