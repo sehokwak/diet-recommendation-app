@@ -16,7 +16,6 @@ import React from "react";
 
 const store = configureStore();
 
-
 const navigator = createStackNavigator(
   {
     Home: HomeScreen, 

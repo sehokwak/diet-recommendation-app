@@ -1,120 +1,79 @@
 import React, {useState} from 'react'; 
-import { Button, ScrollView, Text, StyleSheet} from 'react-native';
+import { Button, ScrollView, View, ImageBackground, FlatList, Text, TouchableHighlight, StyleSheet} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRestr } from '../actions/actions';
 
 
 const RestrictionScreen = ({navigation}) => {
-  const [dairy, setDairy] = useState(false);
-  const [egg, setEgg] = useState(false);
-  const [gluten, setGluten] = useState(false);
-  const [peanut, setPeanut]   = useState(false);
-  const [sesame, setSesame] = useState(false);
-  const [seafood, setSeafood] = useState(false);
-  const [shellfish, setShellfish] = useState(false);
-  const [soy, setSoy] = useState(false);
-  const [sulfite, setSulfite] = useState(false);
-  const [treenut, setTreenut] = useState(false);
-  const [wheat, setWheat] = useState(false);
 
+  const [checkList, setList] = useState([])
+  const [selectRecipe, setSelectRecipe] = useState(false)
 
   const nickname = useSelector(state => state.nameReducer.nickname)
   
   const dispatch = useDispatch();  
-  const addToList = (food, bool) => {
-    if (bool) dispatch(addRestr(food))
-  };
+  const submitRestrictionList = (list) => dispatch(addRestr(list));
+  
 
+  const RESTRICTIONS = [
+    { id:"Dairy"}, 
+    { id:"Egg"},
+    { id:"Gluten"},
+    { id:"Peanut"},
+    { id:"Sesame"},
+    { id:"Seafood"},
+    { id:"Shellfish"}, 
+    { id:"Soy"},
+    { id:"Sulfite"},
+    { id:"Tree Nut"},
+    { id:"Wheat"}
+  ]
 
   return (
-
-    <ScrollView style={styles.container}>   
-
-      <Text style={styles.titleText}>Hi {nickname}, select your food restrictions:</Text>
-      <Button
-      title="Dairy"
-      onPress={() => setDairy(!dairy)}
+    <ImageBackground 
+      source={require("../../assets/page3.png")}
+      style={styles.container}
+      >
+      <Text style={styles.titleText}>Do you have any food restrictions?</Text>
+      <FlatList
+        data={RESTRICTIONS}
+        renderItem={({item}) => {
+          const bgColor = checkList.includes(item.id) ? "#fecbc2" :  "#feeae9"; 
+          return (
+            <TouchableHighlight
+              key={item.id}
+              onPress={() => { 
+                const tempList = checkList;
+                if (!checkList.includes(item.id)) {
+                  tempList.push(item.id)
+                } else {
+                  var ind = tempList.indexOf(item.id)
+                  tempList.splice(ind, 1)
+                }
+                setList(tempList)
+                setSelectRecipe(!selectRecipe)
+                console.log(checkList)
+              }}
+            >
+            <View style={[styles.button_1, {backgroundColor:bgColor}]}>
+              <Text style={styles.text_1}>{item.id}</Text>
+            </View>
+            </TouchableHighlight>
+          )
+        }}
+        extraData={selectRecipe}
       />
-      <Text> {dairy ? "You've selected dairy" : ''} </Text>
-
-      <Button
-      title="Egg"
-      onPress={() => setEgg(!egg)}
-      />
-      <Text> {egg ? "You've selected egg" : ''} </Text>
-
-      <Button
-      title="Gluten"
-      onPress={() => setGluten(!gluten)}
-      />
-      <Text> {gluten ? "You've selected gluten" : ''} </Text>
-
-      <Button
-      title="Peanut"
-      onPress={() => setPeanut(!peanut)}
-      />
-      <Text> {peanut ? "You've selected peanut" : ''} </Text>
-
-      <Button
-      title="Sesame"
-      onPress={() => setSesame(!sesame)}
-      />
-      <Text> {sesame ? "You've selected sesame" : ''} </Text>
-
-      <Button
-      title="Seafood"
-      onPress={() => setSeafood(!seafood)}
-      />
-      <Text> {seafood ? "You've selected seafood" : ''} </Text>
-
-      <Button
-      title="Shellfish"
-      onPress={() => setShellfish(!shellfish)}
-      />
-      <Text> {shellfish ? "You've selected shellfish" : ''} </Text>
-
-      <Button
-      title="Soy"
-      onPress={() => setSoy(!soy)}
-      />
-      <Text> {soy ? "You've selected soy" : ''} </Text>
-
-      <Button
-      title="Sulfite"
-      onPress={() => setSulfite(!sulfite)}
-      />
-      <Text> {sulfite ? "You've selected sulfite" : ''} </Text>
-
-      <Button
-      title="Tree Nut"
-      onPress={() => setTreenut(!treenut)}
-      />
-      <Text> {treenut ? "You've selected tree nut" : ''} </Text>
-      
-      <Button
-      title="Wheat"
-      onPress={() => setWheat(!wheat)}
-      />
-      <Text> {wheat ? "You've selected wheat" : ''} </Text>      
-
-      <Button
+     
+    <Button
       title="Next"
       onPress={() => {
-        addToList("dairy", dairy)
-        addToList("egg", egg)
-        addToList("gluten", gluten)
-        addToList("peanut", peanut)
-        addToList("sesame", sesame)
-        addToList("seafood", seafood)
-        addToList("shellfish", shellfish)
-        addToList("soy", soy)
-        addToList("sulfite", sulfite)
-        addToList("tree nut", treenut)
-        addToList("wheat", wheat)
-        navigation.navigate('Recommend')
-      }}/>
-
-    </ScrollView>
+        submitRestrictionList(checkList)
+        navigation.navigate("Recommend")
+      }}
+    />
+    
+    </ImageBackground>
+    
   );
 };
 
@@ -122,11 +81,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#feeae9", 
-    // alignItems: 'center'
+    alignItems: 'center'
   },
   titleText: {
     color: "#121212", 
     fontSize: 20, 
+  },
+  button_1:{
+    backgroundColor: "#e9b0ad",
+    width: 200,
+    height: 60, 
+    borderColor: 'black', 
+    borderWidth: 1
+  }, 
+  text_1:{
+    color: "#121212",
+    fontSize: 23, 
+    textAlign: 'center'
   }
 });
 
