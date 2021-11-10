@@ -76,7 +76,7 @@ const ResultsTwoScreen = ({navigation}) => {
   const renderHeader = (section) => {
     return (
       <View style={styles.button}>
-        <Text >{section.title}</Text>
+        <Text style={styles.title_text}>{section.title}</Text>
       </View>
     )
   }
@@ -89,8 +89,8 @@ const ResultsTwoScreen = ({navigation}) => {
           source={{uri: section.image
           }}
         />
-        <Text >{section.ingredients}</Text>
-        <Text >{section.instructions2}</Text>
+        <Text style={styles.ingredients_text}>{section.ingredients}</Text>
+        <Text style={styles.instructions_text}>{section.instructions2}</Text>
       </ScrollView>
     )
   }
@@ -101,7 +101,8 @@ const ResultsTwoScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text >Hi {nickname}, here are your recipes !</Text>
+      <Text style={styles.textstyle}>Hi~ {nickname}, {`\n`}              Here are your recipes !</Text>
+
       <Accordion
         activeSections={activeSections}
         sections={instructionsList} // API CALL ISNT WORKING PROPERLY FOR List
@@ -118,13 +119,31 @@ const ResultsTwoScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#ffe4e1", 
     flex: 1,
     paddingTop: StatusBar.currentHeight,
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#feeae9",
-    padding: 10
+    backgroundColor: "#f08080",
+    padding: 18
+  }, 
+  textstyle: {
+    color: "#121212", 
+    fontSize: 25, 
+    top: 1
+  }, 
+  ingredients_text:{
+    color: "#db7093", 
+    fontSize: 18
+  }, 
+  instructions_text: {
+    color: "#000080", 
+    fontSize: 18
+  }, 
+  title_text:{
+    color: "#ffffff", 
+    fontSize: 18
   }
 });
 
