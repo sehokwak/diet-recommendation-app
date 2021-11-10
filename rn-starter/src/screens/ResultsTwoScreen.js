@@ -42,10 +42,17 @@ const ResultsTwoScreen = ({navigation}) => {
   const extractData = (data) => {
     var tempL = [];
     for (let i = 0; i < data.length; i++) {
+      console.log("reached", i);
+      var instruct = "";
+      if (data[i]["analyzedInstructions"][0] != null) {
+        instruct = extractInstructions(data[i]["analyzedInstructions"][0]["steps"])
+      } else {
+        instruct = data[i]["instructions"]
+      }
       tempL = tempL.concat({
         id: data[i]["id"].toString(),
         title: data[i]["title"],
-        instructions2: extractInstructions(data[i]["analyzedInstructions"][0]["steps"]),
+        instructions2: instruct,
         image: data[i]["image"],
         ingredients: extractIngredients(data[i]["extendedIngredients"])
       });
@@ -105,7 +112,7 @@ const ResultsTwoScreen = ({navigation}) => {
 
       <Accordion
         activeSections={activeSections}
-        sections={instructionsList} // API CALL ISNT WORKING PROPERLY FOR List
+        sections={instructionsList} 
         touchableComponent={TouchableOpacity}
         expandMultiple={false}
         renderHeader={renderHeader}
