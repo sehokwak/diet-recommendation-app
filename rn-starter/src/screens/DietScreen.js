@@ -49,7 +49,6 @@ const DietScreen = ({navigation}) => {
                 }
                 setList(tempList)
                 setSelectRecipe(!selectRecipe)
-                console.log(checkList)
               }}
             >
             <View style={[styles.button_1, {backgroundColor:bgColor}]}>

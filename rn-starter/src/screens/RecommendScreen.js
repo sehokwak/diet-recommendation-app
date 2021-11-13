@@ -37,10 +37,33 @@ const RecommendScreen = ({navigation}) => {
   }
 
   const nickname = useSelector(state => state.nameReducer.nickname)
+  const age = useSelector(state => state.nameReducer.age)
+  const gender = useSelector(state => state.nameReducer.gender)
   const dietList = useSelector(state => state.foodReducer.dietList)
   const restrictions = useSelector(state => state.foodReducer.restrList)
 
   
+  // AWS APIGateway 
+  const storeDataAPI = () => {
+    fetch("https://6z37dkw9d8.execute-api.ap-northeast-2.amazonaws.com/dev/", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "nickname": nickname,
+            "age": age,
+            "gender": gender,
+            "diet": dietList,
+            "restrictions": restrictions
+        })
+    })
+    .then(response => response.text())
+    .catch(error => console.log('error', error));
+  }
+  // End AWS APIGateway
+
+
   /* API call for getting list of recipes */
   const options = {
     method: 'GET',
@@ -102,6 +125,7 @@ const RecommendScreen = ({navigation}) => {
         onPress={() => {
           setShowImage(false)
           if (showImage) {
+            storeDataAPI()
             callAPI()
             setShowList(true)
             setTitle("See Recipes")

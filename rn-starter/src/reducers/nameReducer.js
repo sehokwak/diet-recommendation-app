@@ -1,7 +1,9 @@
-import { SET_NAME } from "../actions/types";
+import { SET_NAME, SET_AGE, SET_GENDER } from "../actions/types";
 
 const initialState = {
   nickname: '',
+  age: '',
+  gender: ''
 }
 
 const nameReducer = (state = initialState, action) => {
@@ -11,6 +13,16 @@ const nameReducer = (state = initialState, action) => {
         ...state,
         nickname: action.name
         };
+    case SET_AGE:
+      return {
+        ...state,
+        age: action.age
+        };
+    case SET_GENDER:
+      return {
+        ...state,
+        gender: action.gender
+        };        
     default:
       return state;
     }

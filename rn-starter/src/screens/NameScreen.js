@@ -1,12 +1,20 @@
 import React, {useState} from 'react'; 
 import { Button, Text, TextInput, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import {useDispatch} from 'react-redux'
-import { addName } from '../actions/actions';
+import { addName, addAge, addGender } from '../actions/actions';
 
 const NameScreen = ({navigation}) => {
   const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+
   const dispatch = useDispatch();
-  const submitName = (nickname) => dispatch(addName(nickname));
+  const submitInfo = (name, age, gender) => {
+    dispatch(addName(name))
+    dispatch(addAge(age))
+    dispatch(addGender(gender))
+  };
+  
 
   return (
     <View style={styles.container}>   
@@ -29,6 +37,8 @@ const NameScreen = ({navigation}) => {
          autoCapitalize="none"
          autoCorrect={false} 
          placeholder='ex) 20, 25, 30, 45, 60 '
+         value = {age} 
+         onChangeText={(newValue) => setAge(newValue) }
          /> 
 
         <Text style={styles.whatIsYourGender}>What is your gender? </Text>
@@ -39,11 +49,13 @@ const NameScreen = ({navigation}) => {
          autoCapitalize="none"
          autoCorrect={false} 
          placeholder='ex) female,male, other '
+         value = {gender} 
+         onChangeText={(newValue) => setGender(newValue) }
          />  
 
         <TouchableOpacity 
       onPress={() => {
-        submitName(name)
+        submitInfo(name, age, gender)
         navigation.navigate('Diet')
       }}
       >

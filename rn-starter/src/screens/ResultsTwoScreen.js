@@ -6,11 +6,13 @@ import axios from 'axios';
 
 const ResultsTwoScreen = ({navigation}) => {
   const nickname = useSelector(state => state.nameReducer.nickname)
+
   const selectedList = useSelector(state => state.foodReducer.selectedList)
-  
+    
   const [activeSections, setActiveSections] = useState([]);
   const [firstTime, setFirstTime] = useState(true);
   const [instructionsList, setInstructionsList] = useState([]);
+
 
   /* api call for getting instructions for selected recipes */
   const options2 = (id) => {return {
@@ -42,7 +44,6 @@ const ResultsTwoScreen = ({navigation}) => {
   const extractData = (data) => {
     var tempL = [];
     for (let i = 0; i < data.length; i++) {
-      console.log("reached", i);
       var instruct = "";
       if (data[i]["analyzedInstructions"][0] != null) {
         instruct = extractInstructions(data[i]["analyzedInstructions"][0]["steps"])
@@ -72,7 +73,6 @@ const ResultsTwoScreen = ({navigation}) => {
   /* end api call functions*/
 
   if (firstTime) {
-    console.log("reached");
     setFirstTime(false);
     var idString = "";
     selectedList.forEach(item => idString = idString.concat(item.id + ","))

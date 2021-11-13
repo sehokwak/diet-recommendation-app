@@ -24,14 +24,15 @@
     <script>
         // define the callAPI function that takes a nickname as parameter
         
-        var callAPI = (crud, name, restrictions="")=>{
+        var callAPI = (name, diet="", restrictions="")=>{
             fetch("https://sn6cqtn9fd.execute-api.ap-northeast-2.amazonaws.com/beta", {
-                method: crud,
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     'nickname': name,
+                    'diet': diet,
                     'restrictions': restrictions
                 }),
                 redirect: 'follow' 
