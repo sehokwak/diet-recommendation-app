@@ -24,7 +24,6 @@ const RestrictionScreen = ({navigation}) => {
     { id:"Seafood"},
     { id:"Shellfish"}, 
     { id:"Soy"},
-    { id:"Sulfite"},
     { id:"Tree Nut"},
     { id:"Wheat"}
   ]
