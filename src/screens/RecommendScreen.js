@@ -65,6 +65,7 @@ const RecommendScreen = ({navigation}) => {
 
 
   /* API call for getting list of recipes */
+  const keys = require('../../.secret/keys.json');
   const options = {
     method: 'GET',
     url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
@@ -79,7 +80,7 @@ const RecommendScreen = ({navigation}) => {
     },
     headers: {
       'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-      'x-rapidapi-key': '85fe4b0aa1msh378a060a5f544fbp15e8edjsnc3884c1c12c4'
+      'x-rapidapi-key': keys['API_KEY']
     }
   };
 

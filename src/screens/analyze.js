@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, Button, TouchableOpacity, Image} from "react-native";
+import { StyleSheet, View, Button, Image} from "react-native";
 
 const Analyze = (hi) => {
 

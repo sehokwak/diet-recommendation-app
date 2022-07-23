@@ -9,7 +9,6 @@ import RecommendScreen from "./src/screens/RecommendScreen";
 import ResultsTwoScreen from "./src/screens/ResultsTwoScreen";
 
 
-
 import { Provider } from "react-redux";
 import configureStore from './src/store';
 import React from "react";

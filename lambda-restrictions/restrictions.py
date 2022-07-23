@@ -1,8 +1,7 @@
 import json
-
-
 import boto3
-from botocore.exceptions import ClientError
+
+
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('ingredients')
@@ -17,18 +16,17 @@ def post_handler(event, context):
 
     response = table.put_item(
         Item={
-            "id":nickname,
-            "age":age,
-            "gender":gender,
-            "diet":diet,
-            "restrictions":restrictions
+            "id"           : nickname,
+            "age"          : age,
+            "gender"       : gender,
+            "diet"         : diet,
+            "restrictions" : restrictions
         })
 
     return {
         "statusCode": 200,
         "body": json.dumps({
             "message": f"Successfully updated data for {nickname}"
-            # "location": ip.text.replace("\n", "")
         }),
     }
 

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Accordion from 'react-native-collapsible/Accordion';
 import axios from 'axios';
 
+
 const ResultsTwoScreen = ({navigation}) => {
   const nickname = useSelector(state => state.nameReducer.nickname)
 
@@ -15,13 +16,14 @@ const ResultsTwoScreen = ({navigation}) => {
 
 
   /* api call for getting instructions for selected recipes */
+  const keys = require('../../.secret/keys.json')
   const options2 = (id) => {return {
     method: 'GET',
     url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk',
     params: {ids: id},
     headers: {
       'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-      'x-rapidapi-key': '85fe4b0aa1msh378a060a5f544fbp15e8edjsnc3884c1c12c4'
+      'x-rapidapi-key': keys['API_KEY']
     }
   }};
   
