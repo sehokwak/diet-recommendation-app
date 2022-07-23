@@ -1,5 +1,5 @@
 # diet-recommendation-app
-A web application that provides meal recipes based on user's dietary restrictions, built with React, Redux.
+A web application that provides meal recipes based on user's dietary restrictions, built with React, Redux, and [Spoonacular API](https://spoonacular.com/food-api/docs).
 
 
 ## Installation and Usage
